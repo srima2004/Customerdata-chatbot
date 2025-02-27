@@ -16,7 +16,7 @@ const CDP_DOCS = {
 
 app.post("/ask", async (req, res) => {
   const { question } = req.body;
-  
+
   if (!question || question.length < 3) {
     return res.json({ answer: "Please ask a valid question." });
   }
@@ -48,11 +48,11 @@ app.post("/ask", async (req, res) => {
 
     if (extractedText.length === 0) {
       return res.json({
-        answer: `I couldn't extract meaningful data. You can check the documentation here: ${CDP_DOCS[matchedCdp]}`,
+        answer: `I couldn't extract meaningful data. You can check the documentation here: <a href="${CDP_DOCS[matchedCdp]}" target="_blank">Documentation</a>`,
       });
     }
 
-    res.json({ answer: extractedText.slice(0, 3).join("\n\n") }); // Return first 3 meaningful paragraphs
+    res.json({ answer: extractedText.slice(0, 3).join("<br><br>") }); // Proper formatting for chatbot UI
   } catch (error) {
     console.error("Error fetching documentation:", error.response?.status, error.response?.statusText);
 
@@ -62,7 +62,7 @@ app.post("/ask", async (req, res) => {
     )}`;
 
     res.json({
-      answer: `I couldn't fetch the answer directly, but you can find it here: ${googleSearchLink}`,
+      answer: `I couldn't fetch the answer directly, but you can find it here: <a href="${googleSearchLink}" target="_blank">Google Search</a>`,
     });
   }
 });
