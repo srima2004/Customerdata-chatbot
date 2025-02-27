@@ -40,5 +40,9 @@ app.post("/ask", async (req, res) => {
     res.json({ answer: `I couldn't fetch the answer, but you can check the official documentation here: ${CDP_DOCS[matchedCdp]}` });
   }
 });
+app.get("/", (req, res) => {
+  res.send("CDP Chatbot Backend is Running!");
+});
 
-app.listen(5000, () => console.log("Server running on port 5000"));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
